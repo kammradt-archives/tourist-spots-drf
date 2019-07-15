@@ -5,7 +5,7 @@ from reviews_app.models import Review
 from addresses_app.models import Address
 
 
-class TouristSpots(models.Model):
+class TouristSpot(models.Model):
     name = models.CharField(max_length=250)
     description = models.TextField()
     available = models.BooleanField(default=False)
