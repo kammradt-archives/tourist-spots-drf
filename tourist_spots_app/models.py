@@ -10,9 +10,9 @@ class TouristSpot(models.Model):
     description = models.TextField()
     available = models.BooleanField(default=False)
     attractions = models.ManyToManyField(Attraction, blank=True)
-    comments = models.ManyToManyField(Comment,blank=True)
+    comments = models.ManyToManyField(Comment, blank=True)
     reviews = models.ManyToManyField(Review, blank=True)
-    address = models.OneToOneField(Address, on_delete=models.CASCADE)
+    address = models.OneToOneField(Address, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.name
