@@ -10,7 +10,7 @@ from reviews_app.api.viewsets import ReviewViewSet
 
 
 router = routers.DefaultRouter()
-router.register(r'touristspots', TouristSpotViewSet)
+router.register(r'tourist-spots', TouristSpotViewSet)
 router.register(r'attractions', AttractionViewSet)
 router.register(r'addresses', AddressViewSet)
 router.register(r'comments', CommentViewSet)
