@@ -10,11 +10,11 @@ from reviews_app.api.viewsets import ReviewViewSet
 
 
 router = routers.DefaultRouter()
-router.register(r'touristspot', TouristSpotViewSet)
-router.register(r'attraction', AttractionViewSet)
-router.register(r'address', AddressViewSet)
-router.register(r'comment', CommentViewSet)
-router.register(r'review', ReviewViewSet)
+router.register(r'touristspots', TouristSpotViewSet)
+router.register(r'attractions', AttractionViewSet)
+router.register(r'addresses', AddressViewSet)
+router.register(r'comments', CommentViewSet)
+router.register(r'reviews', ReviewViewSet)
 
 
 urlpatterns = [
