@@ -13,7 +13,7 @@ router = routers.DefaultRouter()
 router.register(r'tourist-spots', TouristSpotViewSet)
 router.register(r'attractions', AttractionViewSet)
 router.register(r'addresses', AddressViewSet)
-router.register(r'comments', CommentViewSet)
+router.register(r'comments', CommentViewSet, base_name='Comment')
 router.register(r'reviews', ReviewViewSet)
 
 
