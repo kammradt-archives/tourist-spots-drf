@@ -7,3 +7,4 @@ from .serializers import ReviewSerializer
 class ReviewViewSet(ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
+    filter_fields = ['content']

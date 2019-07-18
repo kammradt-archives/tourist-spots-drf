@@ -7,3 +7,4 @@ from .serializers import AddressSerializer
 class AddressViewSet(ModelViewSet):
     queryset = Address.objects.all()
     serializer_class = AddressSerializer
+    filter_fields = ['city', 'state', 'country', 'latitude', 'longitude']

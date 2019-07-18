@@ -6,10 +6,10 @@ from tourist_spots_app.models import TouristSpot
 
 class TouristSpotViewSet(ModelViewSet):
     serializer_class = TouristSpotsSerializer
+    filter_fields = ['name', 'description']
 
     def get_queryset(self):
-        # Better filters can be added here
-        return TouristSpot.objects.filter(available=False)
+        return TouristSpot.objects.filter(available=True)
 
     @action(methods=['post'], detail=True)
     def report(self, request, pk=None):
