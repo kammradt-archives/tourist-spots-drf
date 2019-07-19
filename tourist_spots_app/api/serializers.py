@@ -6,3 +6,4 @@ class TouristSpotsSerializer(ModelSerializer):
     class Meta:
         model = TouristSpot
         fields = '__all__'
+        depth = 1
