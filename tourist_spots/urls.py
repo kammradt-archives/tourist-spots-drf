@@ -4,6 +4,8 @@ from django.conf.urls import include
 from django.urls import path
 from rest_framework import routers
 from django.conf import settings
+
+from reports_app.api.viewsets import ReportViewSet
 from tourist_spots_app.api.viewsets import TouristSpotViewSet
 from attractions_app.api.viewsets import AttractionViewSet
 from addresses_app.api.viewsets import AddressViewSet
@@ -17,6 +19,7 @@ router.register(r'attractions', AttractionViewSet)
 router.register(r'addresses', AddressViewSet)
 router.register(r'comments', CommentViewSet, base_name='Comment')
 router.register(r'reviews', ReviewViewSet)
+router.register(r'reports', ReportViewSet)
 
 
 urlpatterns = [
