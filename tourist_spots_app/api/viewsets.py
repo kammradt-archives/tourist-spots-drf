@@ -1,7 +1,10 @@
+from django.contrib.contenttypes.models import ContentType
 from rest_framework.decorators import action
 from rest_framework.viewsets import ModelViewSet
+
+from reports_app.models import Report
 from .serializers import TouristSpotsSerializer
-from tourist_spots_app.models import TouristSpot
+from ..models import TouristSpot
 
 
 class TouristSpotViewSet(ModelViewSet):
@@ -13,7 +16,9 @@ class TouristSpotViewSet(ModelViewSet):
 
     @action(methods=['post'], detail=True)
     def report(self, request, pk=None):
-        # We will create a report page (form) for users that for some
-        # reason want to report a SPECIFIC TouristSpot and then
-        # the admins will verify
-        pass
+
+        return Report.create_report(
+            content_text=request.data['content'],
+            content_type=ContentType.objects.get_for_model(TouristSpotsSerializer.Meta.model, for_concrete_model=False),
+            object_id=pk
+        )
