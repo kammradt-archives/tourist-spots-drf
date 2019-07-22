@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'rest_framework',
+    'rest_framework.authtoken',
     'django_filters',
 
     'tourist_spots_app',
@@ -45,7 +47,10 @@ INSTALLED_APPS = [
     'comments_app',
     'reviews_app',
     'addresses_app',
-    'reports_app'
+
+    'reports_app',
+
+    'users_app'
 ]
 
 MIDDLEWARE = [
