@@ -1,4 +1,5 @@
 from django.contrib.contenttypes.models import ContentType
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import action
 from rest_framework.viewsets import ModelViewSet
 
@@ -10,7 +11,10 @@ from .serializers import AddressSerializer
 class AddressViewSet(ModelViewSet):
     queryset = Address.objects.all()
     serializer_class = AddressSerializer
+
+    filter_backends = [DjangoFilterBackend]
     filter_fields = ['city', 'state', 'country', 'latitude', 'longitude']
+
 
     @action(methods=['post'], detail=True)
     def report(self, request, pk=None):

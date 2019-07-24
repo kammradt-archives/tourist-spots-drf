@@ -1,4 +1,5 @@
 from django.contrib.contenttypes.models import ContentType
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import action
 from rest_framework.viewsets import ModelViewSet
 
@@ -9,10 +10,11 @@ from .serializers import CommentSerializer
 
 class CommentViewSet(ModelViewSet):
     serializer_class = CommentSerializer
+
+    filter_backends = [DjangoFilterBackend]
     filter_fields = ['content']
 
     def get_queryset(self):
-        # Better filters can be added here
         return Comment.objects.filter(available=True)
 
     @action(methods=['post'], detail=True)
