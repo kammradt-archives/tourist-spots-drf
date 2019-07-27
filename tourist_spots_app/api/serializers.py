@@ -8,10 +8,10 @@ from tourist_spots_app.models import TouristSpot
 
 
 class TouristSpotsSerializer(ModelSerializer):
-    attractions = AttractionSerializer(source='attraction_set', many=True)
-    comments = CommentSerializer(source='comment_set', many=True)
-    reviews = ReviewSerializer(source='review_set', many=True)
-    address = AddressSerializer()
+    attractions = AttractionSerializer(source='attraction_set', many=True, read_only=True)
+    comments = CommentSerializer(source='comment_set', many=True, read_only=True)
+    reviews = ReviewSerializer(source='review_set', many=True, read_only=True)
+    address = AddressSerializer(read_only=True)
 
     class Meta:
         model = TouristSpot
