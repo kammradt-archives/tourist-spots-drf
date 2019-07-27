@@ -6,8 +6,9 @@ from rest_framework.response import Response
 
 
 class Report(models.Model):
-    # user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    content = models.CharField(max_length=500)
     date = models.DateTimeField(auto_now_add=True)
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
@@ -15,7 +16,7 @@ class Report(models.Model):
     content_object = GenericForeignKey('content_type', 'object_id')
 
     def __str__(self):
-        return f'{self.user_id}: {self.content}'
+        return f'{self.user.first_name}: {self.content}'
 
     @staticmethod
     def create_report(content_text, content_type, object_id):

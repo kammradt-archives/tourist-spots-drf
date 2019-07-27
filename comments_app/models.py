@@ -6,8 +6,9 @@ from tourist_spots_app.models import TouristSpot
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = models.TextField()
-    date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
+    content = models.CharField(max_length=500)
+    date = models.DateTimeField(auto_now_add=True)
     available = models.BooleanField(default=True)
 
     tourist_spot = models.ForeignKey(TouristSpot, on_delete=models.CASCADE)
