@@ -3,10 +3,10 @@ from django.contrib.contenttypes.models import ContentType
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAdminOrRegisterOnly
 from rest_framework.viewsets import ModelViewSet
 
 from reports_app.models import Report
+from tourist_spots.src.permissions import IsAdminOrRegisterOnly
 from users_app.api.serializers import UserSerializer
 
 
