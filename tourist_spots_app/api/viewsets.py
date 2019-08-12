@@ -1,7 +1,5 @@
-from django.contrib.contenttypes.models import ContentType
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
@@ -19,4 +17,6 @@ class TouristSpotViewSet(ModelViewSet):
     authentication_classes = [TokenAuthentication]
 
     def get_queryset(self):
-        return TouristSpot.objects.filter(available=True)
+        if self.request.user.profile.user_type == 'MODERATOR':
+            return TouristSpot.objects.all()
+        return TouristSpot.objects.filter(user=self.request.user).filter(available=True)

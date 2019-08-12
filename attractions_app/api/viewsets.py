@@ -7,7 +7,6 @@ from .serializers import AttractionSerializer
 
 
 class AttractionViewSet(ModelViewSet):
-    queryset = Attraction.objects.all()
     serializer_class = AttractionSerializer
 
     filter_backends = [DjangoFilterBackend]
@@ -15,3 +14,7 @@ class AttractionViewSet(ModelViewSet):
 
     permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
+
+    def get_queryset(self):
+        if self.request.user.profile.user_type == 'MODERATOR':
+            return Attraction.objects.all()

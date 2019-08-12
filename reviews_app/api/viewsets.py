@@ -1,7 +1,5 @@
-from django.contrib.contenttypes.models import ContentType
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
@@ -10,7 +8,6 @@ from .serializers import ReviewSerializer
 
 
 class ReviewViewSet(ModelViewSet):
-    queryset = Review.objects.all()
     serializer_class = ReviewSerializer
 
     filter_backends = [DjangoFilterBackend]
@@ -18,3 +15,8 @@ class ReviewViewSet(ModelViewSet):
 
     permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
+
+    def get_queryset(self):
+        if self.request.user.profile.user_type == 'MODERATOR':
+            return Review.objects.all()
+        return Review.objects.filter(user=self.request.user)

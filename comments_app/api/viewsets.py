@@ -17,4 +17,6 @@ class CommentViewSet(ModelViewSet):
     authentication_classes = [TokenAuthentication]
 
     def get_queryset(self):
-        return Comment.objects.filter(available=True)
+        if self.request.user.profile.user_type == 'MODERATOR':
+            return Comment.objects.all()
+        return Comment.objects.filter(user=self.request.user).filter(available=True)

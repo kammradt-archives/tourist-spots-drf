@@ -8,7 +8,6 @@ from .serializers import AddressSerializer
 
 
 class AddressViewSet(ModelViewSet):
-    queryset = Address.objects.all()
     serializer_class = AddressSerializer
 
     filter_backends = [DjangoFilterBackend]
@@ -16,3 +15,7 @@ class AddressViewSet(ModelViewSet):
 
     permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
+
+    def get_queryset(self):
+        if self.request.user.profile.user_type == 'MODERATOR':
+            return Address.objects.all()

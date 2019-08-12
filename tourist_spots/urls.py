@@ -11,20 +11,18 @@ from attractions_app.api.viewsets import AttractionViewSet
 from addresses_app.api.viewsets import AddressViewSet
 from comments_app.api.viewsets import CommentViewSet
 from reviews_app.api.viewsets import ReviewViewSet
-from reports_app.api.viewsets import ReportViewSet
-from users_app.api.viewsets import UserViewSet
+from users_app.api.viewsets import UserViewSet, ProfileViewSet
 
 router = routers.DefaultRouter()
 router.register(r'tourist-spots', TouristSpotViewSet, base_name='TouristSpot')
-router.register(r'attractions', AttractionViewSet)
-router.register(r'addresses', AddressViewSet)
+router.register(r'attractions', AttractionViewSet, base_name='Attraction')
+router.register(r'addresses', AddressViewSet, base_name='Address')
 router.register(r'comments', CommentViewSet, base_name='Comment')
-router.register(r'reviews', ReviewViewSet)
-router.register(r'reports', ReportViewSet)
-router.register(r'users', UserViewSet)
+router.register(r'reviews', ReviewViewSet, 'Review')
+router.register(r'users', UserViewSet, base_name='User')
+router.register(r'profiles', ProfileViewSet, base_name='Profile')
 
 urlpatterns = [
     path('api/', include(router.urls)),
     path('auth/', obtain_auth_token),
-    path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

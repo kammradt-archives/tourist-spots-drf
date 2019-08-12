@@ -1,31 +1,38 @@
 from django.contrib.auth.models import User
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
-from tourist_spots.src.permissions import IsAdminOrRegisterOnly
 from users_app.api.serializers import UserSerializer, ProfileSerializer
 from users_app.models import Profile
 
 
 class UserViewSet(ModelViewSet):
-    queryset = User.objects.all()
     serializer_class = UserSerializer
 
     filter_backends = [DjangoFilterBackend]
     filter_fields = ['username']
 
-    permission_classes = [IsAdminOrRegisterOnly]
+    permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
+
+    def get_queryset(self):
+        if self.request.user.profile.user_type == 'MODERATOR':
+            return User.objects.all()
+        return User.objects.filter(id=self.request.user.id)
 
 
 class ProfileViewSet(ModelViewSet):
-    queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
     filter_backends = [DjangoFilterBackend]
     filter_fields = ['user', 'user_type', 'biography']
 
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
+
+    def get_queryset(self):
+        if self.request.user.profile.user_type == 'MODERATOR':
+            return Profile.objects.all()
+        return Profile.objects.filter(user=self.request.user)
