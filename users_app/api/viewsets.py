@@ -5,7 +5,6 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action
 from rest_framework.viewsets import ModelViewSet
 
-from reports_app.models import Report
 from tourist_spots.src.permissions import IsAdminOrRegisterOnly
 from users_app.api.serializers import UserSerializer
 
@@ -19,11 +18,3 @@ class UserViewSet(ModelViewSet):
 
     permission_classes = [IsAdminOrRegisterOnly]
     authentication_classes = [TokenAuthentication]
-
-    @action(methods=['post'], detail=True)
-    def report(self, request, pk=None):
-        return Report.create_report(
-            content_text=request.data['content'],
-            content_type=ContentType.objects.get_for_model(UserSerializer.Meta.model, for_concrete_model=False),
-            object_id=pk
-        )
