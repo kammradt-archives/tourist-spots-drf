@@ -21,5 +21,6 @@ class UserSerializer(ModelSerializer):
 
     def create(self, validated_date):
         user = User.objects.create_user(**validated_date)
+        Profile.objects.create(user=user)
         Token.objects.create(user=user)
         return user

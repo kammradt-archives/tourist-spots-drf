@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.viewsets import ModelViewSet
 
 from users_app.api.serializers import UserSerializer, ProfileSerializer
@@ -14,7 +14,7 @@ class UserViewSet(ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filter_fields = ['username']
 
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     authentication_classes = [TokenAuthentication]
 
     def get_queryset(self):

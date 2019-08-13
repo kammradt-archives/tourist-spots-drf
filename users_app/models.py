@@ -10,5 +10,5 @@ class Profile(models.Model):
         ("PREMIUM", "PREMIUM"),
         ("MODERATOR", "MODERATOR"),
     )
-    user_type = models.CharField(max_length=20, choices=USER_TYPES, default="REGULAR")
+    user_type = models.CharField(max_length=20, choices=USER_TYPES, default="REGULAR", blank=True)
     biography = models.CharField(max_length=500, blank=True, default='')
