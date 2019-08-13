@@ -16,5 +16,9 @@ class AttractionViewSet(ModelViewSet):
     authentication_classes = [TokenAuthentication]
 
     def get_queryset(self):
-        if self.request.user.profile.user_type == 'MODERATOR':
-            return Attraction.objects.all()
+        try:
+            if self.request.user.profile.user_type == 'MODERATOR':
+                return Attraction.objects.all()
+        except:
+            return []
+

@@ -17,6 +17,8 @@ class ReviewViewSet(ModelViewSet):
     authentication_classes = [TokenAuthentication]
 
     def get_queryset(self):
-        if self.request.user.profile.user_type == 'MODERATOR':
-            return Review.objects.all()
-        return Review.objects.filter(user=self.request.user)
+        try:
+            if self.request.user.profile.user_type == 'MODERATOR':
+                return Review.objects.all()
+        except:
+            return Review.objects.filter(user=self.request.user)

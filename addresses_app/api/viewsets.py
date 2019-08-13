@@ -17,5 +17,8 @@ class AddressViewSet(ModelViewSet):
     authentication_classes = [TokenAuthentication]
 
     def get_queryset(self):
-        if self.request.user.profile.user_type == 'MODERATOR':
-            return Address.objects.all()
+        try:
+            if self.request.user.profile.user_type == 'MODERATOR':
+                return Address.objects.all()
+        except:
+            return []
