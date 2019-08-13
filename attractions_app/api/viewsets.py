@@ -1,7 +1,8 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
 from attractions_app.models import Attraction
 from .serializers import AttractionSerializer
 
@@ -13,7 +14,7 @@ class AttractionViewSet(ModelViewSet):
     filter_fields = ['name', 'description']
 
     permission_classes = [IsAuthenticated]
-    authentication_classes = [TokenAuthentication]
+    authentication_classes = [JWTAuthentication]
 
     def get_queryset(self):
         try:

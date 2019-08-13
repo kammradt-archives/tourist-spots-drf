@@ -1,9 +1,9 @@
 from django.http import JsonResponse
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from comments_app.models import Comment
 from tourist_spots.src.permissions import IsModerator
@@ -17,7 +17,7 @@ class CommentViewSet(ModelViewSet):
     filter_fields = ['content']
 
     permission_classes = [IsAuthenticated]
-    authentication_classes = [TokenAuthentication]
+    authentication_classes = [JWTAuthentication]
 
     def get_queryset(self):
         try:

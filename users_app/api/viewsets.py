@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.viewsets import ModelViewSet
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from users_app.api.serializers import UserSerializer, ProfileSerializer
 from users_app.models import Profile
@@ -15,7 +15,7 @@ class UserViewSet(ModelViewSet):
     filter_fields = ['username']
 
     permission_classes = [AllowAny]
-    authentication_classes = [TokenAuthentication]
+    authentication_classes = [JWTAuthentication]
 
     def get_queryset(self):
         try:
@@ -32,7 +32,7 @@ class ProfileViewSet(ModelViewSet):
     filter_fields = ['user', 'user_type', 'biography']
 
     permission_classes = [IsAuthenticated]
-    authentication_classes = [TokenAuthentication]
+    authentication_classes = [JWTAuthentication]
 
     def get_queryset(self):
         if self.request.user.profile.user_type == 'MODERATOR':
