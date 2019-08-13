@@ -10,3 +10,8 @@ class IsAdminOrRegisterOnly(BasePermission):
             return True
         else:
             return request.user.is_staff
+
+
+class IsModerator(BasePermission):
+    def has_permission(self, request, view):
+        return request.user.profile.user_type == 'MODERATOR'
