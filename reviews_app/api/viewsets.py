@@ -17,8 +17,6 @@ class ReviewViewSet(ModelViewSet):
     authentication_classes = [JWTAuthentication]
 
     def get_queryset(self):
-        try:
-            if self.request.user.profile.user_type == 'MODERATOR':
-                return Review.objects.all()
-        except:
-            return Review.objects.filter(user=self.request.user)
+        if self.request.user.profile.user_type == 'MODERATOR':
+            return Review.objects.all()
+        return Review.objects.filter(user=self.request.user)

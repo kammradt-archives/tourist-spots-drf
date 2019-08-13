@@ -17,8 +17,6 @@ class AddressViewSet(ModelViewSet):
     authentication_classes = [JWTAuthentication]
 
     def get_queryset(self):
-        try:
-            if self.request.user.profile.user_type == 'MODERATOR':
-                return Address.objects.all()
-        except:
-            return []
+        if self.request.user.profile.user_type == 'MODERATOR':
+            return Address.objects.all()
+        return []
