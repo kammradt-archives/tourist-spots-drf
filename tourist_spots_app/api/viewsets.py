@@ -20,9 +20,11 @@ class TouristSpotViewSet(ModelViewSet):
     authentication_classes = [TokenAuthentication]
 
     def get_queryset(self):
-        if self.request.user.profile.user_type == 'MODERATOR':
-            return TouristSpot.objects.all()
-        return TouristSpot.objects.filter(user=self.request.user).filter(available=True)
+        try:
+            if self.request.user.profile.user_type == 'MODERATOR':
+                return TouristSpot.objects.all()
+        except:
+            return TouristSpot.objects.filter(user=self.request.user).filter(available=True)
 
     @action(methods=['put'], detail=True, permission_classes=[IsModerator])
     def hide(self, request, pk=None):

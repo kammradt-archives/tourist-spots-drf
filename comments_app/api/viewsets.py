@@ -20,9 +20,11 @@ class CommentViewSet(ModelViewSet):
     authentication_classes = [TokenAuthentication]
 
     def get_queryset(self):
-        if self.request.user.profile.user_type == 'MODERATOR':
-            return Comment.objects.all()
-        return Comment.objects.filter(user=self.request.user).filter(available=True)
+        try:
+            if self.request.user.profile.user_type == 'MODERATOR':
+                return Comment.objects.all()
+        except:
+            return Comment.objects.filter(user=self.request.user).filter(available=True)
 
     @action(methods=['put'], detail=True, permission_classes=[IsModerator])
     def hide(self, request, pk=None):
