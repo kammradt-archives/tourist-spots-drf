@@ -1,9 +1,11 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 from tourist_spots_app.models import TouristSpot
 
 
 class Address(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     tourist_spot = models.OneToOneField(TouristSpot, on_delete=models.CASCADE)
 
     line1 = models.CharField(max_length=250)

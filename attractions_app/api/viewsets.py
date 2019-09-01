@@ -19,5 +19,5 @@ class AttractionViewSet(ModelViewSet):
     def get_queryset(self):
         if self.request.user.profile.user_type == 'MODERATOR':
             return Attraction.objects.all()
-        return []
+        return Attraction.objects.filter(user=self.request.user)
 

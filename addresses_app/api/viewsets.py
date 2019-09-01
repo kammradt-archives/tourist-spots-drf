@@ -19,4 +19,5 @@ class AddressViewSet(ModelViewSet):
     def get_queryset(self):
         if self.request.user.profile.user_type == 'MODERATOR':
             return Address.objects.all()
-        return []
+        return Address.objects.filter(user=self.request.user)
+
